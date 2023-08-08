@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import SignUp from './SignUp';
+import SignUp from './pages/SignUp';
 
 function App() {
   return (

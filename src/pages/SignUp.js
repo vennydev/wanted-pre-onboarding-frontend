@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [isDisabled, setIsDisabled] = useState(true);
+  const navigate = useNavigate();
 
   const getSignUpEmail = (e) => {
     setEmail(e.target.value);
@@ -18,6 +21,18 @@ function SignUp() {
     if(email.includes('@')){
       if(password.length + 1 >= 8){
         // 로그인 성공 후 로그인 페이지로 이동
+          axios.post('https://www.pre-onboarding-selection-task.shop/auth/signup', {
+            email: email,
+            password: password,
+          }).then(function(response){
+            navigate("/signin");
+          }).catch(function(error){
+            const sameEmailAlertMsg = '동일한 이메일이 이미 존재합니다.';
+            if(error.response.data.message === sameEmailAlertMsg){
+              alert(sameEmailAlertMsg);
+              setIsDisabled(true);
+            }
+          })
       }else{
       setIsDisabled(true)
       alert("비밀번호는 8자 이상이어야 합니다.")
@@ -28,11 +43,12 @@ function SignUp() {
     }
   };
 
-  const setButtonEnabled = () => {
-    return email && password
+  useEffect(() => {
+    email && password
       ? setIsDisabled(false)
       : setIsDisabled(true)
-  };
+    
+  }, [email, password]);
 
   return (
     <div>
@@ -44,7 +60,6 @@ function SignUp() {
           name="email"
           placeholder="이메일을 입력해주세요."
           className="input-email"
-          onKeyDown={setButtonEnabled}
           value={email}
           onChange={getSignUpEmail}
            />
@@ -55,7 +70,6 @@ function SignUp() {
           name="password"
           placeholder="비밀번호를 입력해주세요."
           className="input-pw"
-          onKeyDown={setButtonEnabled}
           value={password}
           onChange={setSignUpPassword}
         />
