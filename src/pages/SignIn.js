@@ -18,7 +18,6 @@ function SignIn() {
             password: password,
           }).then(function(response){
             localStorage.setItem('myToken', response.data.access_token);
-            alert("로그인에 성공하였습니다.")
             navigate("/todo");
           }).catch(function(error){
             const sameEmailAlertMsg = "Unauthorized";
