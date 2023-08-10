@@ -1,29 +1,35 @@
 import React, { useState } from 'react'
 import TodoList from './TodoList';
 import CreateTodo from './CreateTodo';
+import axios from 'axios';
 
 function Todo() {
   const [todoArray, setTodoArray] = useState([]);
-  const [todoValue, setTodoValue] = useState({
-    todo: "",
-    done: false,
-  });
+  const [todoValue, setTodoValue] = useState("");
+  const getURL = 'https://www.pre-onboarding-selection-task.shop/todos';
+  const token = localStorage.getItem('myToken');
   
-  const handleCreate = (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
+    const request = await axios.post(getURL, {
+      todo: todoValue
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
     setTodoArray([
       ...todoArray,
-      todoValue
+      request.data
     ]);
-    setTodoValue({
-      todo: "",
-      done: false,
-    });
+
+    setTodoValue("");
   };
 
   const handleChange = (e) => {
     const value = e.target.value;
-    setTodoValue({...todoValue, todo: value});
+    setTodoValue(value);
   }
 
   return (

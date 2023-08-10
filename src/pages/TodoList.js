@@ -20,7 +20,7 @@ function TodoList({todoArray, setTodoArray}){
   return (
     <ul>
       {todoArray.map((el) => (
-        <li>
+        <li key={el.id}>
           <label>
             <input type="checkbox" />
             <span>{el.todo}</span>
