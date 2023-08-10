@@ -11,6 +11,8 @@ function Todo() {
   
   const handleCreate = async (e) => {
     e.preventDefault();
+    if(todoValue === '') return;
+
     const request = await axios.post(getURL, {
       todo: todoValue
     }, {
@@ -30,11 +32,14 @@ function Todo() {
   const handleChange = (e) => {
     const value = e.target.value;
     setTodoValue(value);
-  }
+  };
 
   return (
     <>
-      <TodoList todoArray={todoArray} setTodoArray={setTodoArray}/>
+      <TodoList 
+        todoArray={todoArray} 
+        setTodoArray={setTodoArray}
+        />
       <CreateTodo 
         handleChange={handleChange} 
         handleCreate={handleCreate}
