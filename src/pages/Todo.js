@@ -1,9 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
+import TodoList from './TodoList';
+import CreateTodo from './CreateTodo';
 
 function Todo() {
-  console.log('todo 페이지입니다');
+  const [todoArray, setTodoArray] = useState([]);
+  const [todoValue, setTodoValue] = useState({
+    todo: "",
+    done: false,
+  });
+  
+  const handleCreate = (e) => {
+    e.preventDefault();
+    setTodoArray([
+      ...todoArray,
+      todoValue
+    ]);
+    setTodoValue({
+      todo: "",
+      done: false,
+    });
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setTodoValue({...todoValue, todo: value});
+  }
+
   return (
-    <div>Todo</div>
+    <>
+      <TodoList todoArray={todoArray} setTodoArray={setTodoArray}/>
+      <CreateTodo 
+        handleChange={handleChange} 
+        handleCreate={handleCreate}
+        todoValue={todoValue}
+        />
+    </>
   )
 }
 
