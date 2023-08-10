@@ -1,9 +1,24 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
+import CheckBox from '../components/CheckBox';
 
 function TodoList({todoArray, setTodoArray}){
   const getURL = 'https://www.pre-onboarding-selection-task.shop/todos';
   const token = localStorage.getItem('myToken');
+
+  const checkedItemHandler = ({id, isCompleted, todo}) => {
+    const updateCompletedTodo = async() => {
+      await axios.put(`${getURL}/${id}`, {
+        todo: todo,
+        isCompleted: !isCompleted
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    };
+    updateCompletedTodo();
+  };
 
   useEffect(() => {
     const getTodo = async() => {
@@ -19,10 +34,10 @@ function TodoList({todoArray, setTodoArray}){
 
   return (
     <ul>
-      {todoArray.map((el) => (
+      {todoArray && todoArray.map((el) => (
         <li key={el.id}>
           <label>
-            <input type="checkbox" />
+            <CheckBox row={el} checkedItemHandler={checkedItemHandler}/>
             <span>{el.todo}</span>
           </label>
           <button data-testid="modify-button">수정</button>
