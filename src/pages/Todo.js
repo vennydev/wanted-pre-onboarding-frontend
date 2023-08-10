@@ -6,14 +6,14 @@ import axios from 'axios';
 function Todo() {
   const [todoArray, setTodoArray] = useState([]);
   const [todoValue, setTodoValue] = useState("");
-  const getURL = 'https://www.pre-onboarding-selection-task.shop/todos';
+  const URL = 'https://www.pre-onboarding-selection-task.shop';
   const token = localStorage.getItem('myToken');
   
   const handleCreate = async (e) => {
     e.preventDefault();
     if(todoValue === '') return;
 
-    const request = await axios.post(getURL, {
+    const request = await axios.post(`${URL}/todos`, {
       todo: todoValue
     }, {
       headers: {
@@ -34,11 +34,27 @@ function Todo() {
     setTodoValue(value);
   };
 
+  const onRemove = async (id) => {
+      await axios.delete(`${URL}/todos/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      const request = await axios.get(`${URL}/todos`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+      });
+      setTodoArray(request.data);
+    };
+
   return (
     <>
       <TodoList 
         todoArray={todoArray} 
         setTodoArray={setTodoArray}
+        onRemove={onRemove}
         />
       <CreateTodo 
         handleChange={handleChange} 

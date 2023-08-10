@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import CheckBox from '../components/CheckBox';
 
-function TodoList({todoArray, setTodoArray}){
+function TodoList({todoArray, setTodoArray, onRemove}){
   const getURL = 'https://www.pre-onboarding-selection-task.shop/todos';
   const token = localStorage.getItem('myToken');
 
@@ -41,7 +41,7 @@ function TodoList({todoArray, setTodoArray}){
             <span>{el.todo}</span>
           </label>
           <button data-testid="modify-button">수정</button>
-          <button data-testid="delete-button">삭제</button>
+          <button data-testid="delete-button" onClick={() => onRemove(el.id)}>삭제</button>
         </li>
       ))}
     </ul>
