@@ -47,13 +47,36 @@ function Todo() {
           }
       });
       setTodoArray(request.data);
-    };
+  };
+
+  const handleSubmitEditedTodo = async (e, id, isCompleted, editedTodo) => {
+    e.preventDefault();
+    
+    let newTodoData = todoArray.map((data) => {
+      if(data.id === id) {
+        data.todo = editedTodo;
+      }
+      return data
+    });
+
+     await axios.put(`${URL}/todos/${id}`, {
+      todo: editedTodo,
+      isCompleted: isCompleted,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    setTodoArray(newTodoData);
+  };
 
   return (
     <>
       <TodoList 
         todoArray={todoArray} 
         setTodoArray={setTodoArray}
+        handleSubmitEditedTodo={handleSubmitEditedTodo}
         onRemove={onRemove}
         />
       <CreateTodo 

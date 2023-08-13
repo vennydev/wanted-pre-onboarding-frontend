@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import CheckBox from '../components/CheckBox';
+import Issue from './Issue';
 
-function TodoList({todoArray, setTodoArray, onRemove}){
+function TodoList({todoArray, setTodoArray, handleSubmitEditedTodo, onRemove}){
   const getURL = 'https://www.pre-onboarding-selection-task.shop/todos';
   const token = localStorage.getItem('myToken');
 
@@ -35,14 +35,7 @@ function TodoList({todoArray, setTodoArray, onRemove}){
   return (
     <ul>
       {todoArray && todoArray.map((el) => (
-        <li key={el.id}>
-          <label>
-            <CheckBox row={el} checkedItemHandler={checkedItemHandler}/>
-            <span>{el.todo}</span>
-          </label>
-          <button data-testid="modify-button">수정</button>
-          <button data-testid="delete-button" onClick={() => onRemove(el.id)}>삭제</button>
-        </li>
+        <Issue key={el.id} el={el} checkedItemHandler={checkedItemHandler} handleSubmitEditedTodo={handleSubmitEditedTodo} onRemove={onRemove}/>
       ))}
     </ul>
   )
