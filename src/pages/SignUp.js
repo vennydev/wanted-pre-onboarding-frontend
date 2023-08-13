@@ -77,6 +77,7 @@ function SignUp() {
           data-testid="signup-button"
           disabled={isDisabled}
           >회원가입</button>
+        <button onClick={() => navigate("/signin")}>로그인하기</button>
       </form>
     </div>
   )
