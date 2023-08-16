@@ -12,6 +12,8 @@ const GlobalStyle = createGlobalStyle`
 	  justify-content: center;
 	  align-items: center;
     height: 100vh;
+    width: 100%;
+    margin: 0;
   }
 
   h2, p {

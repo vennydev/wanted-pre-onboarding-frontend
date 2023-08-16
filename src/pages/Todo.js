@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import TodoList from './TodoList';
 import CreateTodo from './CreateTodo';
 import axios from 'axios';
+import { TodoContainer } from '../styles/TodoStyled';
 
 function Todo() {
   const [todoArray, setTodoArray] = useState([]);
@@ -72,7 +73,7 @@ function Todo() {
   };
 
   return (
-    <>
+    <TodoContainer>
       <TodoList 
         todoArray={todoArray} 
         setTodoArray={setTodoArray}
@@ -84,7 +85,7 @@ function Todo() {
         handleCreate={handleCreate}
         todoValue={todoValue}
         />
-    </>
+    </TodoContainer>
   )
 }
 

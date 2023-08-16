@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import Issue from './Issue';
+import { TodoListContainer } from '../styles/TodoStyled';
+
 
 function TodoList({todoArray, setTodoArray, handleSubmitEditedTodo, onRemove}){
   const getURL = 'https://www.pre-onboarding-selection-task.shop/todos';
@@ -33,11 +35,11 @@ function TodoList({todoArray, setTodoArray, handleSubmitEditedTodo, onRemove}){
   }, [setTodoArray, token]);
 
   return (
-    <ul>
+    <TodoListContainer>
       {todoArray && todoArray.map((el) => (
         <Issue key={el.id} el={el} checkedItemHandler={checkedItemHandler} handleSubmitEditedTodo={handleSubmitEditedTodo} onRemove={onRemove}/>
       ))}
-    </ul>
+    </TodoListContainer>
   )
 }
 
