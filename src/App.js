@@ -18,6 +18,11 @@ function App() {
     <div className="App">
       <GlobalStyle />
       <Routes>
+      <Route path="/" element={
+              <PublicRoute>
+                <SignIn />
+              </PublicRoute>
+            } />
             <Route path="/todo" element={
               <PrivateRoute>
                 <Todo />
