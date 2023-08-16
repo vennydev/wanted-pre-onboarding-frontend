@@ -4,4 +4,4 @@
 
 - 프로젝트 실행 방법 : npm start
 
-- 배포 링크 : [링크](https://vennydev.github.io/wanted-pre-onboarding-frontend/signin)
+- 배포 링크 : [링크](https://vennydev.github.io/wanted-pre-onboarding-frontend/)
