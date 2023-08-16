@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Container, FormContainer, ButtonWrapper, Button, NavigateButton } from '../styles/LoginStyled';
 
 function SignIn() {
   let [email, setEmail] = useState("");
@@ -44,35 +45,43 @@ function SignIn() {
   }, [email, password]);
 
   return (
-    <div>
-    <form onSubmit={login} id="signInForm">
-      <input 
-        data-testid="email-input"
-        type="text"
-        id="email"
-        name="email"
-        placeholder="이메일을 입력해주세요."
-        className="input-email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-         />
-      <input
-        data-testid="password-input"
-        type="text"
-        id="password"
-        name="password"
-        placeholder="비밀번호를 입력해주세요."
-        className="input-pw"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button 
-        data-testid="signin-button"
-        disabled={isDisabled}
-        >로그인</button>
-        <button onClick={() => navigate("/signup")}>회원가입하기</button>
-    </form>
-  </div>
+    <Container>
+      <h2>Sign in</h2>
+      <FormContainer onSubmit={login} id="signInForm">
+        <div>
+          <input 
+            data-testid="email-input"
+            type="text"
+            id="email"
+            name="email"
+            placeholder="이메일을 입력해주세요."
+            className="input-email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            data-testid="password-input"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="비밀번호를 입력해주세요."
+            className="input-pw"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <ButtonWrapper>
+          <Button 
+            data-testid="signin-button"
+            disabled={isDisabled}
+            className='login-button'
+            >로그인</Button>
+          <NavigateButton onClick={() => navigate("/signup")}>회원가입하기</NavigateButton>
+        </ButtonWrapper>
+      </FormContainer>
+    </Container>
   )
 }
 

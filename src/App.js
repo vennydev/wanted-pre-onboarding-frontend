@@ -1,5 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { SignUp, SignIn, Todo} from './pages/index.js';
+import GlobalStyle from "./GlobalStyle";
 
 function App() {
   const PublicRoute = ({ children }) => {
@@ -12,8 +13,10 @@ function App() {
     return isLogined ? children : <Navigate to="/signin" />;
   };
 
+  
   return (
     <div className="App">
+      <GlobalStyle />
       <Routes>
             <Route path="/todo" element={
               <PrivateRoute>
